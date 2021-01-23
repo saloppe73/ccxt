@@ -1577,6 +1577,7 @@ module.exports = class binance extends Exchange {
         const clientOrderId = this.safeString (order, 'clientOrderId');
         const timeInForce = this.safeString (order, 'timeInForce');
         const postOnly = (type === 'limit_maker') || (timeInForce === 'GTX');
+        const stopPrice = this.safeFloat (order, 'stopPrice');
         return {
             'info': order,
             'id': id,
@@ -1590,6 +1591,7 @@ module.exports = class binance extends Exchange {
             'postOnly': postOnly,
             'side': side,
             'price': price,
+            'stopPrice': stopPrice,
             'amount': amount,
             'cost': cost,
             'average': average,
@@ -2000,7 +2002,9 @@ module.exports = class binance extends Exchange {
         }
         await this.loadMarkets ();
         const market = this.market (symbol);
-        const type = this.safeValue (params, 'type', market['type']);
+        const defaultType = this.safeString2 (this.options, 'fetchMyTrades', 'defaultType', market['type']);
+        const type = this.safeString (params, 'type', defaultType);
+        params = this.omit (params, 'type');
         let method = undefined;
         if (type === 'spot') {
             method = 'privateGetMyTrades';
@@ -2009,7 +2013,6 @@ module.exports = class binance extends Exchange {
         } else if (type === 'delivery') {
             method = 'dapiPrivateGetUserTrades';
         }
-        params = this.omit (params, 'type');
         const request = {
             'symbol': market['id'],
         };

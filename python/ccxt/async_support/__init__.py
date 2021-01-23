@@ -4,7 +4,7 @@
 
 # -----------------------------------------------------------------------------
 
-__version__ = '1.39.93'
+__version__ = '1.40.90'
 
 # -----------------------------------------------------------------------------
 
@@ -53,7 +53,6 @@ from ccxt.base.errors import error_hierarchy                # noqa: F401
 
 from ccxt.async_support.acx import acx                                    # noqa: F401
 from ccxt.async_support.aofex import aofex                                # noqa: F401
-from ccxt.async_support.bcex import bcex                                  # noqa: F401
 from ccxt.async_support.bequant import bequant                            # noqa: F401
 from ccxt.async_support.bibox import bibox                                # noqa: F401
 from ccxt.async_support.bigone import bigone                              # noqa: F401
@@ -142,7 +141,6 @@ from ccxt.async_support.lakebtc import lakebtc                            # noqa
 from ccxt.async_support.latoken import latoken                            # noqa: F401
 from ccxt.async_support.lbank import lbank                                # noqa: F401
 from ccxt.async_support.liquid import liquid                              # noqa: F401
-from ccxt.async_support.livecoin import livecoin                          # noqa: F401
 from ccxt.async_support.luno import luno                                  # noqa: F401
 from ccxt.async_support.lykke import lykke                                # noqa: F401
 from ccxt.async_support.mercado import mercado                            # noqa: F401
@@ -180,7 +178,6 @@ from ccxt.async_support.zb import zb                                      # noqa
 exchanges = [
     'acx',
     'aofex',
-    'bcex',
     'bequant',
     'bibox',
     'bigone',
@@ -269,7 +266,6 @@ exchanges = [
     'latoken',
     'lbank',
     'liquid',
-    'livecoin',
     'luno',
     'lykke',
     'mercado',

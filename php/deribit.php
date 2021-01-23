@@ -1013,7 +1013,7 @@ class deribit extends Exchange {
             'cancelled' => 'canceled',
             'filled' => 'closed',
             'rejected' => 'rejected',
-            // 'untriggered' => 'open',
+            'untriggered' => 'open',
         );
         return $this->safe_string($statuses, $status, $status);
     }
@@ -1098,7 +1098,7 @@ class deribit extends Exchange {
             $trades = $this->parse_trades($trades, $market);
         }
         $timeInForce = $this->parse_time_in_force($this->safe_string($order, 'time_in_force'));
-        $stopPrice = null;
+        $stopPrice = $this->safe_value($order, 'stop_price');
         $postOnly = $this->safe_value($order, 'post_only');
         return array(
             'info' => $order,
@@ -1635,7 +1635,7 @@ class deribit extends Exchange {
         $request = array(
             'instrument_name' => $market['id'],
         );
-        $response = $this->privateGetPosition (array_merge($request, $params));
+        $response = $this->privateGetGetPosition (array_merge($request, $params));
         //
         //     {
         //         "jsonrpc" => "2.0",
@@ -1674,7 +1674,7 @@ class deribit extends Exchange {
         $request = array(
             'currency' => $currency['id'],
         );
-        $response = $this->privateGetPositions (array_merge($request, $params));
+        $response = $this->privateGetGetPositions (array_merge($request, $params));
         //
         //     {
         //         "jsonrpc" => "2.0",

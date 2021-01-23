@@ -1011,7 +1011,7 @@ module.exports = class deribit extends Exchange {
             'cancelled': 'canceled',
             'filled': 'closed',
             'rejected': 'rejected',
-            // 'untriggered': 'open',
+            'untriggered': 'open',
         };
         return this.safeString (statuses, status, status);
     }
@@ -1096,7 +1096,7 @@ module.exports = class deribit extends Exchange {
             trades = this.parseTrades (trades, market);
         }
         const timeInForce = this.parseTimeInForce (this.safeString (order, 'time_in_force'));
-        const stopPrice = undefined;
+        const stopPrice = this.safeValue (order, 'stop_price');
         const postOnly = this.safeValue (order, 'post_only');
         return {
             'info': order,
@@ -1633,7 +1633,7 @@ module.exports = class deribit extends Exchange {
         const request = {
             'instrument_name': market['id'],
         };
-        const response = await this.privateGetPosition (this.extend (request, params));
+        const response = await this.privateGetGetPosition (this.extend (request, params));
         //
         //     {
         //         "jsonrpc": "2.0",
@@ -1672,7 +1672,7 @@ module.exports = class deribit extends Exchange {
         const request = {
             'currency': currency['id'],
         };
-        const response = await this.privateGetPositions (this.extend (request, params));
+        const response = await this.privateGetGetPositions (this.extend (request, params));
         //
         //     {
         //         "jsonrpc": "2.0",
